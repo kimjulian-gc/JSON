@@ -33,6 +33,7 @@ public class JSONString implements JSONValue {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
+    // TODO: Ask Rebelsky if check for null makes sense
     return (this.value == null)
       ? "null"
       : this.value.toString();
@@ -42,6 +43,7 @@ public class JSONString implements JSONValue {
    * Compare to another object.
    */
   public boolean equals(Object other) {
+    // TODO: Ask Rebelsky if equals should check other equals value
     return ((this == other)
             || ((other instanceof JSONString)
                 && (this.value.equals(((JSONString) other).value))));
@@ -51,6 +53,7 @@ public class JSONString implements JSONValue {
    * Compute the hash code.
    */
   public int hashCode() {
+    // TODO: Ask Rebelsky if check for null makes sense
     return (this.value == null)
       ? 0
       : this.value.hashCode();
