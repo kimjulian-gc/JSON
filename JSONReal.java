@@ -48,6 +48,7 @@ public class JSONReal implements JSONValue {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
+    // TODO: Ask Rebelsky if checking for null makes sense
     return (this.value == null)
       ? "null"
       : this.value.toString();
@@ -57,6 +58,7 @@ public class JSONReal implements JSONValue {
    * Compare to another object.
    */
   public boolean equals(Object other) {
+    // TODO: Ask Rebelsky if equals should check if other equals value
     return ((this == other)
             || ((other instanceof JSONReal)
                 && (this.value.equals(((JSONReal)other).value))));
@@ -66,6 +68,7 @@ public class JSONReal implements JSONValue {
    * Compute the hash code.
    */
   public int hashCode() {
+    // TODO: Ask Rebelsky if checking for null makes sense
     return (this.value == null) 
       ? 0
       : this.value.hashCode();
@@ -80,6 +83,7 @@ public class JSONReal implements JSONValue {
    */
   public void writeJSON(PrintWriter pen) {
     pen.print(this.value.toString());
+    pen.flush();
   } // writeJSON(PrintWriter)
 
   /**
