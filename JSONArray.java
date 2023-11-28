@@ -35,6 +35,7 @@ public class JSONArray {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
+    // TODO: Ask Rebelsky if check for null makes sense
     return (this.values == null)
       ? "null"
       : this.values.toString();
@@ -44,6 +45,7 @@ public class JSONArray {
    * Compare to another object.
    */
   public boolean equals(Object other) {
+    // TODO: Ask Rebelsky if equals should check other equals values
     return ((this == other)
             || ((other instanceof JSONArray)
                 && (this.values.equals(((JSONArray) other).values))));
@@ -53,6 +55,7 @@ public class JSONArray {
    * Compute the hash code.
    */
   public int hashCode() {
+    // TODO: Ask Rebelsky if check for null makes sense
     return (this.values == null)
       ? 0
       : this.values.hashCode();
