@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 /**
  * JSON constants.
  */
-public class JSONConstant {
+public class JSONConstant implements JSONValue {
 
   // +---------------+-----------------------------------------------
   // | Static fields |
@@ -65,7 +65,7 @@ public class JSONConstant {
   public boolean equals(Object other) {
     return ( ( (other instanceof JSONConstant) 
                && (this.value == ((JSONConstant) other).value) )
-             || (this.value == other) );
+             || (this == other) );
   } // equals(Object)
 
   /**
