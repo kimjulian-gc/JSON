@@ -67,6 +67,7 @@ public class JSONArray {
    */
   public void writeJSON(PrintWriter pen) {
     pen.print(this.toString());
+    pen.flush();
   } // writeJSON(PrintWriter)
 
   /**
