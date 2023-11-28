@@ -48,6 +48,7 @@ public class JSONInteger implements JSONValue {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
+    // TODO: Ask Rebelsky if checking for null makes sense
     return (this.value == null)
       ? "null"
       : this.value.toString();
@@ -57,6 +58,7 @@ public class JSONInteger implements JSONValue {
    * Compare to another object.
    */
   public boolean equals(Object other) {
+    // TODO: Ask Rebelsky if equals should check other equals value
     return ((this == other)
             || ((other instanceof JSONInteger) 
                 && (this.value.equals(((JSONInteger) other).value))));
@@ -66,6 +68,7 @@ public class JSONInteger implements JSONValue {
    * Compute the hash code.
    */
   public int hashCode() {
+    // TODO: Ask Rebelsky if checking for null makes sense
     return (this.value == null)
       ? 0
       : this.value.hashCode();
