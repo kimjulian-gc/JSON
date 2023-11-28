@@ -35,21 +35,27 @@ public class JSONArray {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    return "";          // STUB
+    return (this.values == null)
+      ? "null"
+      : this.values.toString();
   } // toString()
 
   /**
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return true;        // STUB
+    return ((this == other)
+            || ((other instanceof JSONArray)
+                && (this.values.equals(((JSONArray) other).values))));
   } // equals(Object)
 
   /**
    * Compute the hash code.
    */
   public int hashCode() {
-    return 0;           // STUB
+    return (this.values == null)
+      ? 0
+      : this.values.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -60,7 +66,7 @@ public class JSONArray {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-                        // STUB
+    pen.print(this.toString());
   } // writeJSON(PrintWriter)
 
   /**
@@ -108,4 +114,5 @@ public class JSONArray {
   public int size() {
     return this.values.size();
   } // size()
+
 } // class JSONArray
