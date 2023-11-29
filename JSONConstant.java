@@ -63,6 +63,7 @@ public class JSONConstant implements JSONValue {
    * Compare to another object.
    */
   public boolean equals(Object other) {
+    // TODO: Ask Rebelsky if equals should check other equals value
     return ( ( (other instanceof JSONConstant) 
                && (this.value == ((JSONConstant) other).value) )
              || (this == other) );
