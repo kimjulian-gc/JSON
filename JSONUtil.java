@@ -2,6 +2,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.text.ParseException;
 
+/**
+ * Utilities for our simple implementation of JSON.
+ * @author Seunghyeon (Hyeon) Kim
+ */
+
 public class JSONUtil {
   /**
    * Current character

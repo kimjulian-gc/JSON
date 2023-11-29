@@ -3,6 +3,8 @@ import java.math.BigInteger;
 
 /**
  * JSON integers.
+ * @author Sam A. Rebelsky
+ * @author Albert Okine
  */
 public class JSONInteger implements JSONValue {
 

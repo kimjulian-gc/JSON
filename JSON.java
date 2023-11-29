@@ -5,13 +5,11 @@ import java.io.StringReader;
 import java.text.ParseException;
 
 /**
- * Utilities for our simple implementation of JSON.
+ * JSON implementation (parsing class)
+ * @author Sam A. Rebelsky
+ * @author Seunghyeon (Hyeon) Kim
  */
 public class JSON {
-  // +---------------+-----------------------------------------------
-  // | Static fields |
-  // +---------------+
-
   // +----------------+----------------------------------------------
   // | Static methods |
   // +----------------+

@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 
 /**
  * JSON hashes/objects.
+ * @author Sam A. Rebelsky
+ * @author Julian Kim
  */
 public class JSONHash implements JSONValue {
 
