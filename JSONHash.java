@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * JSON hashes/objects.
  */
-public class JSONHash {
+public class JSONHash implements JSONValue {
 
   // +--------+------------------------------------------------------
   // | Fields |
@@ -49,7 +49,8 @@ public class JSONHash {
     String result = "{ ";
 
     Iterator<KVPair<JSONString, JSONValue>> pairs = this.iterator();
-    if (pairs.hasNext()) result += pairs.next();
+    if (pairs.hasNext())
+      result += pairs.next();
     while (pairs.hasNext()) {
       result += ", " + pairs.next();
     }
@@ -127,44 +128,48 @@ public class JSONHash {
    */
   public Iterator<KVPair<JSONString, JSONValue>> iterator() {
     return new Iterator<KVPair<JSONString, JSONValue>>() {
-      int pairsSeen = 0;
+      int currBucket = 0;
+      int currValue = 0;
 
       @Override
       public boolean hasNext() {
-        return pairsSeen < JSONHash.this.size;
+        if (currBucket >= JSONHash.this.buckets.length)
+          return false;
+
+        ArrayList<KVPair<JSONString, JSONValue>> castedBucket =
+            castBucket(JSONHash.this.buckets[currBucket]);
+        if (castedBucket == null) {
+          currBucket++;
+          return hasNext();
+        }
+        if (currValue == castedBucket.size()) {
+          currValue = 0;
+          currBucket++;
+          return hasNext();
+        }
+
+        return true;
       }
 
       @Override
-      @SuppressWarnings("unchecked")
       public KVPair<JSONString, JSONValue> next() {
         if (!hasNext())
           throw new NoSuchElementException();
 
         KVPair<JSONString, JSONValue> result = null;
-        int pairsToSee = pairsSeen;
 
-        for (Object bucket : JSONHash.this.buckets) {
+        for (; currBucket < JSONHash.this.buckets.length; currBucket++) {
+          ArrayList<KVPair<JSONString, JSONValue>> bucket =
+              castBucket(JSONHash.this.buckets[currBucket]);
           if (bucket == null)
             continue;
-          // bucket is otherwise a non empty bucket.
-          // cast the bucket to what it is (an arraylist of kvpairs)
-          ArrayList<KVPair<JSONString, JSONValue>> castedBucket =
-              (ArrayList<KVPair<JSONString, JSONValue>>) bucket;
-          for (KVPair<JSONString, JSONValue> pair : castedBucket) {
-            if (pair.key() == null)
-              continue;
-            
-            if (pairsToSee == 0) {
-              // if we have run out of pairs to see
-              result = pair;
-              break;
-            }
-            // otherwise remove one pair we need to see
-            pairsToSee--;
-          }
+
+          // otherwise bucket exists
+          // return the current value
+          result = bucket.get(currValue++);
+          break;
         }
-        
-        pairsSeen++;
+
         return result;
       }
 
@@ -174,17 +179,16 @@ public class JSONHash {
   /**
    * Set the value associated with a key.
    */
-  @SuppressWarnings("unchecked")
   public void set(JSONString key, JSONValue value) {
     // if too many pigeons for pigeonholes, make more pigeonholes.
     if (this.size() > (this.buckets.length * LOAD_FACTOR))
       this.expand();
 
     int bucketIndex = find(key);
-    ArrayList<KVPair<JSONString, JSONValue>> castedBucket =
-        (ArrayList<KVPair<JSONString, JSONValue>>) this.buckets[bucketIndex];
+    ArrayList<KVPair<JSONString, JSONValue>> castedBucket = castBucket(this.buckets[bucketIndex]);
     if (castedBucket == null) {
       this.buckets[bucketIndex] = new ArrayList<>();
+      castedBucket = castBucket(this.buckets[bucketIndex]);
     }
     KVPair<JSONString, JSONValue> toAdd = new KVPair<JSONString, JSONValue>(key, value);
     for (int i = 0; i < castedBucket.size(); i++) {
@@ -208,8 +212,7 @@ public class JSONHash {
   // +---------+---------------------------------------------------------
   // | Helpers |
   // +---------+
-
-  @SuppressWarnings("unchecked")
+  // TODO: fix expand
   void expand() {
     int newSize = 2 * this.buckets.length;
     Object[] oldBuckets = this.buckets;
@@ -219,8 +222,7 @@ public class JSONHash {
         continue;
       // bucket is otherwise a non empty bucket.
       // cast the bucket to what it is (an arraylist of kvpairs)
-      ArrayList<KVPair<JSONString, JSONValue>> castedBucket =
-          (ArrayList<KVPair<JSONString, JSONValue>>) bucket;
+      ArrayList<KVPair<JSONString, JSONValue>> castedBucket = castBucket(bucket);
       for (KVPair<JSONString, JSONValue> pair : castedBucket) {
         if (pair.key() == null)
           continue;
@@ -235,6 +237,11 @@ public class JSONHash {
    */
   int find(JSONString key) {
     return Math.abs(key.hashCode()) % this.buckets.length;
+  }
+
+  @SuppressWarnings("unchecked")
+  ArrayList<KVPair<JSONString, JSONValue>> castBucket(Object bucket) {
+    return (ArrayList<KVPair<JSONString, JSONValue>>) bucket;
   }
 
 } // class JSONHash
