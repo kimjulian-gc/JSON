@@ -4,7 +4,7 @@ import java.math.BigInteger;
 /**
  * JSON integers.
  */
-public class JSONInteger {
+public class JSONInteger implements JSONValue {
 
   // +--------+------------------------------------------------------
   // | Fields |
@@ -48,21 +48,30 @@ public class JSONInteger {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    return this.value.toString();
+    // TODO: Ask Rebelsky if checking for null makes sense
+    return (this.value == null)
+      ? "null"
+      : this.value.toString();
   } // toString()
 
   /**
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return true;        // STUB
+    // TODO: Ask Rebelsky if equals should check other equals value
+    return ((this == other)
+            || ((other instanceof JSONInteger) 
+                && (this.value.equals(((JSONInteger) other).value))));
   } // equals(Object)
 
   /**
    * Compute the hash code.
    */
   public int hashCode() {
-    return 0;           // STUB
+    // TODO: Ask Rebelsky if checking for null makes sense
+    return (this.value == null)
+      ? 0
+      : this.value.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -73,7 +82,8 @@ public class JSONInteger {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-                        // STUB
+    pen.print(this.toString());
+    pen.flush();
   } // writeJSON(PrintWriter)
 
   /**
