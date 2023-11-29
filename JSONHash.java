@@ -212,7 +212,6 @@ public class JSONHash implements JSONValue {
   // +---------+---------------------------------------------------------
   // | Helpers |
   // +---------+
-  // TODO: fix expand
   void expand() {
     int newSize = 2 * this.buckets.length;
     Object[] oldBuckets = this.buckets;
@@ -227,7 +226,7 @@ public class JSONHash implements JSONValue {
         if (pair.key() == null)
           continue;
         // put old pairs into new spots
-        this.buckets[find(pair.key())] = pair;
+        set(pair.key(), pair.value());
       }
     }
   }
