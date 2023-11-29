@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * JSON hashes/objects.
  */
-public class JSONHash {
+public class JSONHash implements JSONValue {
 
   // +--------+------------------------------------------------------
   // | Fields |
