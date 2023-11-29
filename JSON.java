@@ -12,11 +12,6 @@ public class JSON {
   // | Static fields |
   // +---------------+
 
-  /**
-   * The current position in the input.
-   */
-  static int pos;
-
   // +----------------+----------------------------------------------
   // | Static methods |
   // +----------------+
@@ -42,55 +37,11 @@ public class JSON {
    * Parse JSON from a reader.
    */
   public static JSONValue parse(Reader source) throws ParseException, IOException {
-    pos = 0;
-    JSONValue result = parseKernel(source);
-    if (-1 != skipWhitespace(source)) {
-      throw new ParseException("Characters remain at end", pos);
+    JSONUtil utilClass = new JSONUtil();
+    JSONValue result = utilClass.parseKernel(source);
+    if (-1 != utilClass.skipWhitespace(source)) {
+      throw new ParseException("Characters remain at end", utilClass.getPos());
     } // if
     return result;
   } // parse(Reader)
-
-  // +---------------+-----------------------------------------------
-  // | Local helpers |
-  // +---------------+
-
-  /**
-   * Parse JSON from a reader, keeping track of the current position
-   */
-  static JSONValue parseKernel(Reader source) throws ParseException, IOException {
-    JSONValue ret = new JSONHash();
-    int ch;
-    String key = "";
-    ch = skipWhitespace(source);
-    if (-1 == ch) {
-      throw new ParseException("Unexpected end of file", pos);
-    } // if
-    while (ch != -1) {
-      if (ch == '{') {
-      }
-      ch = skipWhitespace(source);
-    } // while
-    return ret;
-  } // parseKernel
-
-  /**
-   * Get the next character from source, skipping over whitespace.
-   */
-  static int skipWhitespace(Reader source) throws IOException {
-    int ch;
-    do {
-      ch = source.read();
-      ++pos;
-    } while (isWhitespace(ch)); // do/while
-    return ch;
-  } // skipWhitespace(Reader)
-
-  /**
-   * Determine if a character is JSON whitespace (newline, carriage return,
-   * space, or tab).
-   */
-  static boolean isWhitespace(int ch) {
-    return (' ' == ch) || ('\n' == ch) || ('\r' == ch) || ('\t' == ch);
-  } // isWhiteSpace(int)
-
 } // class JSON
