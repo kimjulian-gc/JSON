@@ -256,6 +256,7 @@ public class JSONHash implements JSONValue {
 
   @SuppressWarnings("unchecked")
   ArrayList<KVPair<JSONString, JSONValue>> castBucket(Object bucket) {
+    if (!(bucket instanceof ArrayList) && bucket != null) throw new IllegalArgumentException();
     return (ArrayList<KVPair<JSONString, JSONValue>>) bucket;
   }
 
