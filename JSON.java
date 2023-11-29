@@ -46,7 +46,7 @@ public class JSON {
     JSONValue result = parseKernel(source);
     if (-1 != skipWhitespace(source)) {
       throw new ParseException("Characters remain at end", pos);
-    }
+    } // if
     return result;
   } // parse(Reader)
 
@@ -58,13 +58,19 @@ public class JSON {
    * Parse JSON from a reader, keeping track of the current position
    */
   static JSONValue parseKernel(Reader source) throws ParseException, IOException {
+    JSONValue ret = new JSONHash();
     int ch;
+    String key = "";
     ch = skipWhitespace(source);
     if (-1 == ch) {
       throw new ParseException("Unexpected end of file", pos);
-    }
-    // STUB
-    throw new ParseException("Unimplemented", pos);
+    } // if
+    while (ch != -1) {
+      if (ch == '{') {
+      }
+      ch = skipWhitespace(source);
+    } // while
+    return ret;
   } // parseKernel
 
   /**
@@ -75,7 +81,7 @@ public class JSON {
     do {
       ch = source.read();
       ++pos;
-    } while (isWhitespace(ch));
+    } while (isWhitespace(ch)); // do/while
     return ch;
   } // skipWhitespace(Reader)
 
