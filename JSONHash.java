@@ -75,7 +75,7 @@ public class JSONHash implements JSONValue {
    */
   public int hashCode() {
     // from osera chap 12: hashing
-    int result = 831; // random non-zero number.
+    int result = 831; // constant non-zero number.
 
     // sum up each field hashcode
     result = 31 * result + Arrays.deepHashCode(this.buckets);
@@ -92,7 +92,25 @@ public class JSONHash implements JSONValue {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-    pen.println(this.toString());
+    pen.print("{ ");
+
+    Iterator<KVPair<JSONString, JSONValue>> pairs = this.iterator();
+    KVPair<JSONString, JSONValue> currPair;
+    if (pairs.hasNext()) {
+      currPair = pairs.next();
+      currPair.key().writeJSON(pen);
+      pen.print(" : ");
+      currPair.value().writeJSON(pen);
+    }
+    while (pairs.hasNext()) {
+      pen.print(", ");
+      currPair = pairs.next();
+      currPair.key().writeJSON(pen);
+      pen.print(" : ");
+      currPair.value().writeJSON(pen);
+    }
+
+    pen.print(" }");
     pen.flush();
   } // writeJSON(PrintWriter)
 
