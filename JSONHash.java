@@ -128,11 +128,9 @@ public class JSONHash implements JSONValue {
   /**
    * Get the value associated with a key.
    */
-  @SuppressWarnings("unchecked")
   public JSONValue get(JSONString key) {
     int potentialBucket = find(key);
-    ArrayList<KVPair<JSONString, JSONValue>> castedBucket =
-        (ArrayList<KVPair<JSONString, JSONValue>>) this.buckets[potentialBucket];
+    ArrayList<KVPair<JSONString, JSONValue>> castedBucket = castBucket(this.buckets[potentialBucket]);
     for (KVPair<JSONString, JSONValue> pair : castedBucket) {
       if (pair.key().equals(key))
         return pair.value();
