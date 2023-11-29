@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 /**
  * JSON reals.
  */
-public class JSONReal {
+public class JSONReal implements JSONValue {
 
   // +--------+------------------------------------------------------
   // | Fields |
@@ -48,21 +48,30 @@ public class JSONReal {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    return this.value.toString();
+    // TODO: Ask Rebelsky if checking for null makes sense
+    return (this.value == null)
+      ? "null"
+      : this.value.toString();
   } // toString()
 
   /**
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return true;        // STUB
+    // TODO: Ask Rebelsky if equals should check if other equals value
+    return ((this == other)
+            || ((other instanceof JSONReal)
+                && (this.value.equals(((JSONReal)other).value))));
   } // equals(Object)
 
   /**
    * Compute the hash code.
    */
   public int hashCode() {
-    return 0;           // STUB
+    // TODO: Ask Rebelsky if checking for null makes sense
+    return (this.value == null) 
+      ? 0
+      : this.value.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -73,7 +82,8 @@ public class JSONReal {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-                        // STUB
+    pen.print(this.value.toString());
+    pen.flush();
   } // writeJSON(PrintWriter)
 
   /**
