@@ -6,8 +6,9 @@ import java.util.NoSuchElementException;
 
 /**
  * JSON hashes/objects.
- * @author Sam A. Rebelsky
+ * 
  * @author Julian Kim
+ * @author Sam A. Rebelsky
  */
 public class JSONHash implements JSONValue {
 
@@ -132,7 +133,8 @@ public class JSONHash implements JSONValue {
    */
   public JSONValue get(JSONString key) {
     int potentialBucket = find(key);
-    ArrayList<KVPair<JSONString, JSONValue>> castedBucket = castBucket(this.buckets[potentialBucket]);
+    ArrayList<KVPair<JSONString, JSONValue>> castedBucket =
+        castBucket(this.buckets[potentialBucket]);
     for (KVPair<JSONString, JSONValue> pair : castedBucket) {
       if (pair.key().equals(key))
         return pair.value();
@@ -258,7 +260,8 @@ public class JSONHash implements JSONValue {
 
   @SuppressWarnings("unchecked")
   ArrayList<KVPair<JSONString, JSONValue>> castBucket(Object bucket) {
-    if (!(bucket instanceof ArrayList) && bucket != null) throw new IllegalArgumentException();
+    if (!(bucket instanceof ArrayList) && bucket != null)
+      throw new IllegalArgumentException();
     return (ArrayList<KVPair<JSONString, JSONValue>>) bucket;
   }
 

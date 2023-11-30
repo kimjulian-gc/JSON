@@ -4,10 +4,12 @@ import java.util.Iterator;
 
 /**
  * JSON arrays.
+ * 
  * @author Sam A. Rebelsky
  * @author Albert Okine
+ * @author Julian Kim
  */
-public class JSONArray implements JSONValue{
+public class JSONArray implements JSONValue {
 
   // +--------+------------------------------------------------------
   // | Fields |
@@ -27,7 +29,7 @@ public class JSONArray implements JSONValue{
    */
   public JSONArray() {
     this.values = new ArrayList<JSONValue>();
-  } // JSONArray() 
+  } // JSONArray()
 
   // +-------------------------+-------------------------------------
   // | Standard object methods |
@@ -38,9 +40,7 @@ public class JSONArray implements JSONValue{
    */
   public String toString() {
     // TODO: Ask Rebelsky if check for null makes sense
-    return (this.values == null)
-      ? "null"
-      : this.values.toString();
+    return (this.values == null) ? "null" : this.values.toString();
   } // toString()
 
   /**
@@ -49,8 +49,7 @@ public class JSONArray implements JSONValue{
   public boolean equals(Object other) {
     // TODO: Ask Rebelsky if equals should check other equals values
     return ((this == other)
-            || ((other instanceof JSONArray)
-                && (this.values.equals(((JSONArray) other).values))));
+        || ((other instanceof JSONArray) && (this.values.equals(((JSONArray) other).values))));
   } // equals(Object)
 
   /**
@@ -58,9 +57,7 @@ public class JSONArray implements JSONValue{
    */
   public int hashCode() {
     // TODO: Ask Rebelsky if check for null makes sense
-    return (this.values == null)
-      ? 0
-      : this.values.hashCode();
+    return (this.values == null) ? 0 : this.values.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -72,7 +69,7 @@ public class JSONArray implements JSONValue{
    */
   public void writeJSON(PrintWriter pen) {
     pen.print("[ ");
-    
+
     if (this.values.size() > 0)
       this.values.get(0).writeJSON(pen);
     for (int i = 1; i < this.values.size(); i++) {

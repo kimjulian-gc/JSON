@@ -2,8 +2,10 @@ import java.io.PrintWriter;
 
 /**
  * JSON strings.
+ * 
  * @author Sam A. Rebelsky
  * @author Albert Okine
+ * @author Julian Kim
  */
 public class JSONString implements JSONValue {
 
@@ -36,9 +38,7 @@ public class JSONString implements JSONValue {
    */
   public String toString() {
     // TODO: Ask Rebelsky if check for null makes sense
-    return (this.value == null)
-      ? "null"
-      : this.value.toString();
+    return (this.value == null) ? "null" : this.value.toString();
   } // toString()
 
   /**
@@ -47,8 +47,7 @@ public class JSONString implements JSONValue {
   public boolean equals(Object other) {
     // TODO: Ask Rebelsky if equals should check other equals value
     return ((this == other)
-            || ((other instanceof JSONString)
-                && (this.value.equals(((JSONString) other).value))));
+        || ((other instanceof JSONString) && (this.value.equals(((JSONString) other).value))));
   } // equals(Object)
 
   /**
@@ -56,9 +55,7 @@ public class JSONString implements JSONValue {
    */
   public int hashCode() {
     // TODO: Ask Rebelsky if check for null makes sense
-    return (this.value == null)
-      ? 0
-      : this.value.hashCode();
+    return (this.value == null) ? 0 : this.value.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------

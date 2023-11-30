@@ -6,6 +6,7 @@ import java.text.ParseException;
 
 /**
  * JSON implementation (parsing class)
+ * 
  * @author Sam A. Rebelsky
  * @author Seunghyeon (Hyeon) Kim
  */

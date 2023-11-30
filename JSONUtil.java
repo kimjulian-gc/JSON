@@ -56,8 +56,7 @@ public class JSONUtil {
    * @throws ParseException
    * @throws IOException
    */
-  JSONValue parseKernel(Reader source)
-      throws ParseException, IOException {
+  JSONValue parseKernel(Reader source) throws ParseException, IOException {
     // consume the first character
     ch = skipWhitespace(source);
     return parseKernelHelper(source);
@@ -66,8 +65,7 @@ public class JSONUtil {
   /**
    * Parse JSON from a reader, keeping track of the current position
    */
-  JSONValue parseKernelHelper(Reader source)
-      throws ParseException, IOException {
+  JSONValue parseKernelHelper(Reader source) throws ParseException, IOException {
     if (-1 == ch) {
       throw new ParseException("Unexpected end of file", pos);
     } // if
@@ -104,8 +102,7 @@ public class JSONUtil {
   } // skipWhitespace(Reader)
 
   /**
-   * Determine if a character is JSON whitespace (newline, carriage return,
-   * space, or tab).
+   * Determine if a character is JSON whitespace (newline, carriage return, space, or tab).
    */
   boolean isWhitespace(int ch) {
     return (' ' == ch) || ('\n' == ch) || ('\r' == ch) || ('\t' == ch);
@@ -123,8 +120,7 @@ public class JSONUtil {
    * @throws ParseException
    * @throws IOException
    */
-  void extractHash(JSONHash temp, Reader source)
-      throws ParseException, IOException {
+  void extractHash(JSONHash temp, Reader source) throws ParseException, IOException {
     ch = skipWhitespace(source);
     // Check if the hash is empty
     if (ch == '}') {
@@ -155,8 +151,7 @@ public class JSONUtil {
    * @throws IOException
    * @throws ParseException
    */
-  void extractArray(JSONArray tempArr, Reader source)
-      throws IOException, ParseException {
+  void extractArray(JSONArray tempArr, Reader source) throws IOException, ParseException {
     ch = skipWhitespace(source);
     // Check if it is an empty array
     if (ch == ']') {
@@ -181,13 +176,12 @@ public class JSONUtil {
   /**
    * Extracts the String from the source and concatenates it to temp.
    * 
-   * @param temp   initially empty string.
+   * @param temp initially empty string.
    * @param source
    * @throws IOException
    * @throws ParseException
    */
-  JSONString extractString(String temp, Reader source)
-      throws IOException, ParseException {
+  JSONString extractString(String temp, Reader source) throws IOException, ParseException {
     ch = source.read();
     // When it reaches the end of the string, return the JSONString
     if (ch == '\"') {
@@ -205,22 +199,22 @@ public class JSONUtil {
   } // extractString(int, Reader)
 
   /**
-   * Extracts numbers from of the source and concatenates it to temp. Depending
-   * on the type, it returns a JSONReal or JSONInteger
+   * Extracts numbers from of the source and concatenates it to temp. Depending on the type, it
+   * returns a JSONReal or JSONInteger
    * 
    * @param temp
    * @param source
-   * @param type   0: integer (no decimal), 1: real number (decimal)
+   * @param type 0: integer (no decimal), 1: real number (decimal)
    * @throws ParseException
    * @throws IOException
    */
-  JSONValue extractNumber(String temp, Reader source, int type)
-      throws ParseException, IOException {
+  JSONValue extractNumber(String temp, Reader source, int type) throws ParseException, IOException {
     // When . is found any time, it means it is a decimal, so change the type to 1
     if (ch == '.') {
       // if type is already 1, throw an exception
       if (type == 1) {
-        throw new ParseException("Invalid decimal, there are 2 or more decimal points in the data.", pos);
+        throw new ParseException("Invalid decimal, there are 2 or more decimal points in the data.",
+            pos);
       } // if
       type = 1;
     } // if
@@ -242,13 +236,12 @@ public class JSONUtil {
   /**
    * Extracts constants out of the source.
    * 
-   * @param temp   valid strings are null, true, false.
+   * @param temp valid strings are null, true, false.
    * @param source
    * @throws ParseException
    * @throws IOException
    */
-  JSONConstant extractConstant(String temp, Reader source)
-      throws ParseException, IOException {
+  JSONConstant extractConstant(String temp, Reader source) throws ParseException, IOException {
     // if the given character is letter, add it on to temp and repeat the steps
     // until it is not a letter
     if (Character.isLetter(ch)) {
@@ -264,22 +257,21 @@ public class JSONUtil {
   } // extractConstant(Reader)
 
   /**
-   * Helper function for extractHash, it pushes the hash block into temp
-   * from the source
+   * Helper function for extractHash, it pushes the hash block into temp from the source
    * 
    * @param temp
    * @param source
    * @throws ParseException
    * @throws IOException
    */
-  private void pushHash(JSONHash temp, Reader source)
-      throws ParseException, IOException {
+  private void pushHash(JSONHash temp, Reader source) throws ParseException, IOException {
     // read in the key assuming it is a JSONValue
     JSONValue tempKey = parseKernelHelper(source);
     // check whether it is a JSONString. If not, throw an error since the key is
     // wrong.
     if (!(tempKey instanceof JSONString)) {
-      throw new ParseException("Error! Your file formatting is wrong. Invalid Key: " + tempKey, pos);
+      throw new ParseException("Error! Your file formatting is wrong. Invalid Key: " + tempKey,
+          pos);
     } // if
     // if the key exists, throw an exception saying duplicate keys.
     if (containsKey(temp, (JSONString) tempKey)) {

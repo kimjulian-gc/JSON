@@ -3,6 +3,7 @@ import java.math.BigDecimal;
 
 /**
  * JSON reals.
+ * 
  * @author Sam A. Rebelsky
  * @author Albert Okine
  */
@@ -51,9 +52,7 @@ public class JSONReal implements JSONValue {
    */
   public String toString() {
     // TODO: Ask Rebelsky if checking for null makes sense
-    return (this.value == null)
-      ? "null"
-      : this.value.toString();
+    return (this.value == null) ? "null" : this.value.toString();
   } // toString()
 
   /**
@@ -62,8 +61,7 @@ public class JSONReal implements JSONValue {
   public boolean equals(Object other) {
     // TODO: Ask Rebelsky if equals should check if other equals value
     return ((this == other)
-            || ((other instanceof JSONReal)
-                && (this.value.equals(((JSONReal)other).value))));
+        || ((other instanceof JSONReal) && (this.value.equals(((JSONReal) other).value))));
   } // equals(Object)
 
   /**
@@ -71,9 +69,7 @@ public class JSONReal implements JSONValue {
    */
   public int hashCode() {
     // TODO: Ask Rebelsky if checking for null makes sense
-    return (this.value == null) 
-      ? 0
-      : this.value.hashCode();
+    return (this.value == null) ? 0 : this.value.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------

@@ -16,3 +16,6 @@ bin
 
 # Annoying Mac files
 .DS_Store
+
+# test files
+[Tt]est*.*

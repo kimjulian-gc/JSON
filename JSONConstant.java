@@ -3,8 +3,11 @@ import java.io.PrintWriter;
 
 /**
  * JSON constants.
+ * 
  * @author Sam A. Rebelsky
+ * @author Albert Okine
  * @author Seunghyeon (Hyeon) Kim
+ * @author Julian Kim
  */
 public class JSONConstant implements JSONValue {
 
@@ -43,7 +46,7 @@ public class JSONConstant implements JSONValue {
   /**
    * Build a new constant given a string representation.
    */
-  public JSONConstant(String str) throws IOException{
+  public JSONConstant(String str) throws IOException {
     if (str.equals("null")) {
       this.value = NULL;
     } else if (str.equals("true")) {
@@ -82,9 +85,8 @@ public class JSONConstant implements JSONValue {
    */
   public boolean equals(Object other) {
     // TODO: Ask Rebelsky if equals should check other equals value
-    return ( ( (other instanceof JSONConstant) 
-               && (this.value == ((JSONConstant) other).value) )
-             || (this == other) );
+    return (((other instanceof JSONConstant) && (this.value == ((JSONConstant) other).value))
+        || (this == other));
   } // equals(Object)
 
   /**
