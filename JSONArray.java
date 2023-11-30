@@ -4,8 +4,10 @@ import java.util.Iterator;
 
 /**
  * JSON arrays.
+ * @author Sam A. Rebelsky
+ * @author Albert Okine
  */
-public class JSONArray {
+public class JSONArray implements JSONValue{
 
   // +--------+------------------------------------------------------
   // | Fields |

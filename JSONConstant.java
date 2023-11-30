@@ -1,7 +1,10 @@
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
  * JSON constants.
+ * @author Sam A. Rebelsky
+ * @author Seunghyeon (Hyeon) Kim
  */
 public class JSONConstant implements JSONValue {
 
@@ -22,7 +25,7 @@ public class JSONConstant implements JSONValue {
   /**
    * The null value.
    */
-  public static final JSONConstant NULL = new JSONConstant(null);
+  public static final JSONConstant NULL = new JSONConstant((Object) null);
 
   // +--------+------------------------------------------------------
   // | Fields |
@@ -36,6 +39,21 @@ public class JSONConstant implements JSONValue {
   // +--------------+------------------------------------------------
   // | Constructors |
   // +--------------+
+
+  /**
+   * Build a new constant given a string representation.
+   */
+  public JSONConstant(String str) throws IOException{
+    if (str.equals("null")) {
+      this.value = NULL;
+    } else if (str.equals("true")) {
+      this.value = TRUE;
+    } else if (str.equals("false")) {
+      this.value = FALSE;
+    } else {
+      throw new IOException("Invalid object: " + str);
+    } // if/else
+  } // JSONConstant (String)
 
   /**
    * Build a new constant.
