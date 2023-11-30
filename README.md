@@ -8,3 +8,4 @@ Implemented by [Julian Kim](https://github.com/eoyoa), [Seunghyeon Kim](https://
 Acknowledgements:
 
 * Skeleton code by [SamR](https://github.com/rebelsky)
+* Hashcode implementation for JSONHash adapted from [Peter-Michael Osera](https://github.com/psosera)'s book
